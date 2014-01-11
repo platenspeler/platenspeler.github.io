@@ -6,41 +6,12 @@
 
 <body>
 
-<h1>LamPI</h1>
+<h1>LamPI Setup</h1>
 <h5>LamPI is a Home Automation project for switching equipment in the house over 444 MHz senders/transmitters on a RaspberryPI.</h5>
 <p><img src="room_screen_grey.JPG" width="962" height="632" /></p>
 <p>As you see, the GUI interface is designed to operate (and manage) all tasks for the connected devices and minimize the need for manual changing of configuration files etc. let alone making configuration changes at compile time.</p>
 <p>In case I missed something, please send me an email or make a note on this page. For the moment I'm the only author of LamPI so it can take a few days before I answer...</p>
 <h1>LamPI Introduction</h1>
-<p>The goal of my project was to provide an easy interface to the family to ontrol the lights in or house. We had klikaanklikuit.nl switches and we have an iPad (and some Android phones and Laptops) and want to control our light switches with an easy-to-use GUI interface. This mean I needed at least 2 components: A component the would control transmitter and receiver and handle low-level device commands, and a GUI in Javascipt/jQuery that would handle the human interaction. In order to store configuration information and for timing commands and unattended use, we need a daemon process that works in the background as well as a database (written in MySQL) to store configuration information.</p>
 <p>&nbsp;</p>
-<h1>Main LamPI Functions</h1>
-<ul>
-  <li>Initial Setup</li>
-  <li><a href="rooms.html">The Rooms Screen</a></li>
-  <li>The Scenes Screen</li>
-  <li>The Timers Screen</li>
-  <li>The Handsets Screen</li>
-  <li>The Options Screen</li>
-</ul>
-<h1>What Platform does LamPI run on?</h1>
-<ul>
-  <li>The webGUI of LamPI runs on every webserver in your network as it is implemented in Javascript/jQuery. That means that if you install it on a webserver in your netwerk you can access the GUI User Interface from every browser in your network (and soon also from the internet). By default, teh webserver runs fine on the RaspberryPI (you need the Raspberry anyway).<br>
-  <strong>The current setup works VERY well on iPad.</strong></li>
-  <li>If you want, you can setup the MySQL database on another server (that is what I did), but this is optional.</li>
-  <li>The low-level device functions for transmitter and receiver, will at the moment only run on the RaspberryPI, although making an Arduino version is probably not much work. The executables are all found in the ~/exe directory. The source code for these functions can be found in the ~/receivers directory.</li>
-</ul>
-<p>&nbsp;</p>
-<h1>Architectural Considerations</h1>
-<p>I did make an architecture document</p>
-<h1>Planned Functions</h1>
-<p>Of course I'm always thinking about new functions, as long as I do not have to put the current sytem up-side-down too much. After all, I do have other day-time work to do and it has to make sense for me to spend additional time. Therefore, you are welcome to ask for new functions, but if it will cost me days to implement them and I will not benefit from them in any way I will probably give priority to other changes.</p>
-<ul>
-  <li>Add support for Android phones. This is in beta at the moment and I use PhoneGap technology of Adobe to make such version. All Javascript/jQueryMobile code is already in the LamPI-x.y.js file, the index.html file will determine what libraries to load. I will probably ublish a separate branch for Android with the same version number as its web equivalent.</li>
-  <li>Adding new handsets at this moment stil requires manual editing of the database.cfg file. I like to add more options to the OPTIONS screen for setup of new switch types and handset types, so that adding such switches and handsets at runtime is a lot easier.</li>
-  <li>Add support for Z-Wave or Zigbee. I have not decided what is next, but as the LamPI-daemon is quite universal in its setup adding transmitter/receivers for these technologies is relatively easy.</li>
-  <li>I like (at some time) be integrating my front-end with the new standards for Home Automation as soon as stacks become available for the Raspberry.</li>
-  <li>And I'm always looking for cheap new designed wall switches to add to the set..</li>
-</ul>
 </body>
 </html>
