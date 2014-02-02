@@ -15,6 +15,7 @@
   <li><a href="#daemon">Use LamPI-receiver as a daemon process</a></li>
   <li><a href="#sniffer">Use LamPI-receiver as a sniffer or stand-alone</a></li>
   <li><a href="transmitters">Using the transmitter programs (for Kaku, Livolo, Action etc.)</a></li>
+  <li><a href="#messageformat">Message Formats (raw and jSon messages)</a></li>
 </ul>
 <p>If you like to know more about the design/architecture considerations for this interface, please go to the <a href="architecture.html">architecture documentation</a>.</p>
 <h1><a name="compile"></a>Compiling and Building</h1>
@@ -69,8 +70,57 @@
   <li>-g &lt;switch address&gt;; The address is different for every brand of receiver. New kaku equipment has very large addresses that are coded in the remotes and switches can &quot;learn&quot; their address when pairing. Other brands such as Action/Impuls only have 31 room addresses and only 5(!) device addresses. This makes it VERY difficult to integrate action stuff easily in every room as you need to reserve one of the first addresses for sich switch.</li>
   <li>-n &lt;device&gt;; Like the address, the number of devices is dependent on the brand implementation as well. For Action this is 1-5 (A-E) whereas for Kaku this can be 16 different devices.</li>
   <li>-p &lt;pin&gt;; Optional flag for identifying the pin number of the Raspberry output pin. </li>
-  <li>&lt;value&gt;; The last value in the chain does not have a leading flag. Its value is &quot;on&quot; or &quot;off&quot; for switches and van be a value for Kaku dimmers &quot;0&quot; to &quot;31&quot;. For Livolo and Kopou wall switches, the on value will toggle the lights whereas the off value will switch off ALL devices with the same address (like pressing the D button on the remote will switch off the lights of A, B and C button.<br>
-  </li>
+  <li>&lt;value&gt;; The last value in the chain does not have a leading flag. Its value is &quot;on&quot; or &quot;off&quot; for switches and van be a value for Kaku dimmers &quot;0&quot; to &quot;31&quot;. For Livolo and Kopou wall switches, the on value will toggle the lights whereas the off value will switch off ALL devices with the same address (like pressing the D button on the remote will switch off the lights of A, B and C button.</li>
+  <li></li>
 </ul>
+<p>&nbsp;</p>
+<h1><a name="messageformat"></a>Message Format</h1>
+<p>&nbsp;</p>
+<h2>Messages sent to LamPI-Daemon</h2>
+<p>This section describes the message format of messages which are received from the 433MHz receiver and sent to the LamPI-daemon. Basically we have 2 choices: Send the message in some raw and proprietary format, for example the ICS-1000 format. This format works excellent to remot controls that are used for switching devices and lamps. However, sensors (temperature, humidity) and energy (usage in kW) is another matter.</p>
+<h3>Raw</h3>
+<p>For raw messages, the format is as follows: tbd</p>
+<h3>Json</h3>
+<p>For jSon messages, the format is based on the type of signal that we like to send to the daemon. We have a number of different messages: switches, weather, sensors and energy. The first part of every message is the same, and the content part is specific...</p>
+<p>struct jSon {</p>
+<blockquote>
+  <p>    type: raw | json,<br>
+    tcnt: &lt;%d&gt;,<br>
+    action: gui | handset | weather | sensor | energy,<br>
+    brand: livolo | kaku | action | kopou | wt400h ,<br>
+    message: (if applicable type==raw, ICS-coded message,<br>
+    TYPE SPECIFIC ...</p>
+</blockquote>
+<p>}</p>
+<p>if type == device</p>
+<blockquote>
+  <p>address:<br>
+    unit:<br>
+    value:
+  </p>
+</blockquote>
+<p>if type == weather</p>
+<blockquote>
+  <p>address<br>
+    unit<br>
+    channel<br>
+    temperature<br>
+    humidity<br>
+    windspeed<br>
+    winddirection</p>
+</blockquote>
+<p>if type== sensor</p>
+<blockquote>
+  <p>tbd</p>
+</blockquote>
+<p>if type==energy</p>
+<blockquote>
+  <p>tbd<br>
+  </p>
+</blockquote>
+<h2>Messages receiver from LamPI-daemon</h2>
+<p>Messages received from the LamPI-daemon that are sent to the transmitter are at the moment coded in raw ICS-1000 format. That means that most messages are of the form &quot;RxxDyyFz or RxxDyyFdPqq&quot; where xx is the room address in max 2 digits, yy the device cumber in max 2 digits and for swithches z is either '0' (OFF) or '1' (ON). In case of a dimmer command, qq is the level with value 1-32.</p>
+<p><br>
+</p>
 </body>
 </html>
