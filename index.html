@@ -17,14 +17,14 @@
 </ul>
 <h3>Control your lights and switches</h3>
 <p>This is where I developed LamPI for initially. It will control your light switches and your dimmers and your other switches as well (so your stereo too). </p>
-<p><img src="screenshots/room_screen_grey.JPG" width="962" height="637" /></p>
+<p><img src="screenshots/room_screen_grey.JPG" width="311" height="212" /></p>
 <p>The screen above is one of the main screens of LamPI, and should give you a taste of what LamPI is about. As you see, the GUI interface is designed to operate (and manage) all tasks for the connected devices and minimize the need for manual changing of configuration files etc. let alone making configuration changes at compile time.</p>
 <h3>Weather</h3>
 <p>Recently, support for weather sensors was added to LamPI. In principle the LamPI-receiver process can be taught to detect a wide variety of temperature, humidity, rain and wind sensors. For the weather gauge widgets I used existing libraries such as the &quot;steel&quot; library of Gerrit Grunwald and Mark Crossley. If the configuration file contains definitions for supported weather sensors, then the menu will automatically display an option to view/select weather info.</p>
 <p>Actually, what you see below is just a small example of what &quot;steel&quot; can do for your project. The library is highly customizable so you can make your own background, color an other settings if you like.</p>
 <p>What you see below is the first version  for LamPI 1.8 with weather support. It does support weather sensors of UPM that transmit temperature and humidity values back to the LamPI-deamon.php process which are then broadcast to all connected clients. And as you see, the client will display the temperature (top row) for outside, the extension of our home and the living room. On the second row it will display the humidity for these three rooms.</p>
 <p>The definitions of sensors are stored in a configuration file.</p>
-<p><img src="screenshots/weather_screen_2.JPG" width="964" height="635"></p>
+<p><img src="screenshots/weather_screen_2.JPG" width="331" height="212"></p>
 <p>Apart from the latest sensor info, or even near-real-time information received, I like to add support for historical charts etc. At the moment, all sensor readings are stored in a log file, and also in the MySQL database.</p>
 </body>
 </html>
