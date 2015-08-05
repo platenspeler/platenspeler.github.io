@@ -8,8 +8,11 @@
 
 <h1>Hardware Guide</h1>
 <p>This page deals with the hardware that we need to connect to the Raspberry PI in order to communicatie with 433MHz receivers or Handsets and turn your RPI into a full functioning control center. LamPI can support receiver devices (making transmitter modules for various brands is often easy). Also, several brand share almost the same protocol or work or can be made to work with minor modifications, Therefore, the list below is probably just a snapshot of a much larger list...</p>
+<p>&nbsp;</p>
 <h2>Supported Devices Direct Connect</h2>
-<p>By connecting transmistter, receiver and/or sensors irectly to the Raspberry, it is possible to control a great deal of devices and/or sensors.</p>
+<p>By connecting transmistter, receiver and/or sensors irectly to the Raspberry, it is possible to control a great deal of devices and/or sensors.<br>
+  <br>
+<img src="images/pi transmitter 3.jpg" width="400" height="300"></p>
 <h3>433MHz Receivers, Switches, Dimmers</h3>
 <ul>
   <li>Klikaanklikuit switches, the new type</li>
@@ -29,31 +32,42 @@
 <ul>
   <li><a href="wt440h/wt440h.html">WT-440H</a>, made by UPM/Esic (The weather menu button will only show if a weather sensor is defined in the ~/config/database.cfg file)</li>
 </ul>
+<p>&nbsp;</p>
 <h2>Arduino Gateway</h2>
-<p>Instead of connecting a transmitter and receiver directly to the Raspberry, it is also possible to use a Arduino gateway.</p>
+<p>Instead of connecting a transmitter and receiver directly to the Raspberry, it is also possible to use a Arduino gateway. IN this case, the Arduino will take care of all the 433 MHz wireless communication and it will connect to the Raspberry through a USB cable and port for power and host communication.</p>
+<p><img src="Arduino/images/board_01.jpg" width="400" height="300"></p>
+<p>At this moment the Arduino can be used for:</p>
 <ul>
   <li>For handset (receiver) and transmitter support of kaku devices</li>
   <li>For sensor support of WT-440h weather sensors</li>
 </ul>
 <p>&nbsp;</p>
+<p>&nbsp;</p>
 <h2>868 MHz Zwave Gateway (Razberry)</h2>
+<p>If you like to get your home automation working with more sophisticated technology which enables you to query the status&nbsp;of your connected devices: Z-Wave is your way to go.</p>
+<p><img src="Razberry/razberry1.jpg" width="400" height="267"></p>
 <ul>
   <li>Fibaro FGD-211 Dimmer</li>
   <li>Fibaro double switch</li>
   <li>AEON Multi Sensor</li>
   <li>Fibaro Multi Sensor</li>
 </ul>
+<p>&nbsp;</p>
 <h2>2.4GB Zigbee devices</h2>
+<p>&nbsp;</p>
 <p>Zigbee devices are on the (wish-) list of being supported </p>
 <ul>
   <li>TBD (None supported yet)</li>
 </ul>
+<p>&nbsp;</p>
 <h2>Wired Sensors</h2>
 <ul>
   <li>Wired sensors: DHT11, DHT22 Temperature/Humidity Sensor</li>
   <li>1-Wire bus sensors: DS18B20 Temperature Sensor</li>
   <li>2-wire I2C bus sensors: such as BMP085, BMP180, LM75a, SHT21 sensors</li>
 </ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h1>Interfacing 433MHz devices</h1>
 <p>There are several ways to interface LamPI with 433MHz devices. First of all, one can connect a transmitter and/or reeiver directly to the RaspberryPI. This is the cheapest solution. Secondly, you can buy&nbsp; dedicated interface such as the Rfxcomm that connets to the Raspberry over a&nbsp;USB interface. This devices will do most if not all low-level processing for the Raspberry. And thirdly, you can make your own solution with for example an Adruino and build your own device for transmitting and receiving 433MHz messages. so what are the pro's nd conn's?</p>
