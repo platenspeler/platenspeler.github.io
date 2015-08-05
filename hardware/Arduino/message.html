@@ -97,7 +97,7 @@
   <tr>
     <td>Receive a 433 Sensor message</td>
     <td>&lt; {cnt} 3 {codec} {address} {channel} {temperature} {humidity}</td>
-    <td>wt440h is one codec 0 but there are more</td>
+    <td>wt440h (UPM/Esic) is one codec 0 but there are more</td>
   </tr>
 </table>
 <p>As you can see, the message coming in from the Arduino of a device is the same as the message that is sent by the Raspberry to get the Arduino to send a command to a KlikAanKlikAuit device.</p>
@@ -118,7 +118,7 @@
 <h3>Sensors</h3>
 <p>Some sensors may have their own manufacturer protocol and their own transmitter. But there may also be ones that are connected to an Arduino who will forward the sensor message to the LamPI-node daemon.</p>
 <ul>
-  <li>0: wt440h weather sensor</li>
+  <li>0: wt440h (UPM, Esic) weather sensor</li>
   <li>1: </li>
 </ul>
 <p>&nbsp;</p>

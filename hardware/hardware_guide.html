@@ -8,14 +8,15 @@
 
 <h1>Hardware Guide</h1>
 <p>This page deals with the hardware that we need to connect to the Raspberry PI in order to communicatie with 433MHz receivers or Handsets and turn your RPI into a full functioning control center. LamPI can support receiver devices (making transmitter modules for various brands is often easy). Also, several brand share almost the same protocol or work or can be made to work with minor modifications, Therefore, the list below is probably just a snapshot of a much larger list...</p>
-<h2>Supported Devices</h2>
+<h2>Supported Devices Direct Connect</h2>
+<p>By connecting transmistter, receiver and/or sensors irectly to the Raspberry, it is possible to control a great deal of devices and/or sensors.</p>
 <h3>433MHz Receivers, Switches, Dimmers</h3>
 <ul>
   <li>Klikaanklikuit switches, the new type</li>
   <li>Action or Impuls switches</li>
   <li>Livolo switches</li>
   <li>Kopou switches</li>
-  <li>Elro, Blokker, Old Kliaanklikuit (not tested, software is installed)</li>
+  <li>Elro, Blokker, Old Klikaanklikuit (not tested, software is installed)</li>
 </ul>
 <h3>433MHz Handsets and Remote Controls</h3>
 <ul>
@@ -28,18 +29,26 @@
 <ul>
   <li><a href="wt440h/wt440h.html">WT-440H</a>, made by UPM/Esic (The weather menu button will only show if a weather sensor is defined in the ~/config/database.cfg file)</li>
 </ul>
-<h3>868 MHz Zwave devices (Razberry)</h3>
+<h2>Arduino Gateway</h2>
+<p>Instead of connecting a transmitter and receiver directly to the Raspberry, it is also possible to use a Arduino gateway.</p>
+<ul>
+  <li>For handset (receiver) and transmitter support of kaku devices</li>
+  <li>For sensor support of WT-440h weather sensors</li>
+</ul>
+<p>&nbsp;</p>
+<h2>868 MHz Zwave Gateway (Razberry)</h2>
 <ul>
   <li>Fibaro FGD-211 Dimmer</li>
   <li>Fibaro double switch</li>
   <li>AEON Multi Sensor</li>
   <li>Fibaro Multi Sensor</li>
 </ul>
-<h3>2.4GB Zigbee devices</h3>
+<h2>2.4GB Zigbee devices</h2>
+<p>Zigbee devices are on the (wish-) list of being supported </p>
 <ul>
   <li>TBD (None supported yet)</li>
 </ul>
-<h3>Wired Sensors</h3>
+<h2>Wired Sensors</h2>
 <ul>
   <li>Wired sensors: DHT11, DHT22 Temperature/Humidity Sensor</li>
   <li>1-Wire bus sensors: DS18B20 Temperature Sensor</li>
@@ -112,8 +121,10 @@
 </table>
 <p>&nbsp;</p>
 <h2>LamPI Choice</h2>
-<p>For the moment, LamPI supports the first approach only. The rfxcom solution would probably work (after some work) but is not tested because of the potential cost.</p>
-<p>In the future, I will do some work on option 3 and try whether an USB solution based on a dedicated Arduino 433MHz gateway over USB can be used as well.</p>
+<p>For the moment, LamPI supports the first approach mainly, with support for an Arduino gateway as a second option. The Arduino gateway doe snot support all sensors or devices at the moment, but work will be done to get this wotking.</p>
+<p><br>
+  The rfxcom solution would probably work (after some work) but is not tested because of the potential cost.</p>
+<p>&nbsp;</p>
 <h1>Hardware needed on Raspberry</h1>
 <p>So the list of equipment that we can interface to is long, but what hardware do we need to install in order to control all these devices?  And how to connect your Weather and Energy Sensors? </p>
 <ul>

@@ -6,12 +6,17 @@
 </head>
 
 <body>
-<h1>Installation</h1>
-<p>A little background on the Arduio project to start with. For a long time I was convinced that we could do with a Raspberry system in all situations: The Raspberry was a perfect workhorse to do database pocessing and other compute intensive stuff and it would run a standard version of Linux. And because of its low price of around 35 Euro for the Raspberry version 2, who would be looking for any other system to build a Home Automation (HA) system.</p>
-<p>However, it turns out that the Raspberry does have some trouble with interrupt intensive loads and it's timing is not accurate enough to provide real-time like experience. Also, the price of a lean-and-mean Arduino is just 2.50 Euro for an Arduino model Nano. So why not use that system as a gateway handling all transmitter/receiver interrupts? And it's timing is far better....</p>
+<h1>Nano-Nano Installation</h1>
+<p>A little background on the Arduino project to start with. For a long time I was convinced that we could do with a Raspberry system in all situations: The Raspberry was a perfect workhorse to do database pocessing and other compute intensive stuff and it would run a standard version of Linux. And because of its low price of around 35 Euro for the Raspberry version 2, who would be looking for any other system to build a Home Automation (HA) system.</p>
+<p><a href="images/board_01.jpg"><img src="images/board_01.jpg" width="600" height="450" hspace="5" vspace="5" /></a><a href="images/board_02.jpg"><img src="images/board_02.jpg" width="600" height="450" hspace="5" vspace="5" /><br />
+  <br />
+</a>However, it turns out that the Raspberry does have some trouble with interrupt intensive loads and it's timing is not accurate enough to provide real-time like experience especially for smort messages. Also, the price of a lean-and-mean Arduino is just 2.50 Euro for an Arduino model Nano. So why not use that system as a gateway handling all transmitter/receiver interrupts? And it's timing is far better....</p>
 <p>So I decided to buy myself 2 of these Arduino Nano machines and connect hem to my LamPI system as an alternative to direct connected transmitter/receiver parts. It turns out the even with the cheapest transmitter/receiver pair connected (we're talking about sub 1 Euro for a pair) the Arduino does better than the Raspberry in almost every situation.</p>
+<p>Here is two photos of my Arduino Nano when it arrived at my home...</p>
 <h2>Arrival</h2>
-<p>The Arduino Nano, ordered on eBay for $2.55 , arrived within a week in our mailbox. As I ordered the Arduino without any other cables, power supply etc. the package was only small. The Arduino was packaged in an anti-static bag which told me to be careful with the device as long as it was not connected to any PC or other device with grounding.</p>
+<p>The Arduino Nano, ordered on eBay for $2.55 arrived within a week in our mailbox. As I ordered the Arduino without any other cables, power supply etc. the package was only small. The Arduino was packaged in an anti-static bag which told me to be careful with the device as long as it was not connected to any PC or other device with grounding.</p>
+<p><img src="images/arduino_delivered_2.jpg" width="884" height="434" /></p>
+<p>As you can see, I had some soldering to do in order to get the system ready for inclusion in my LamPI home automation system.</p>
 <p>https://www.arduino.cc/en/Main/arduinoBoardNano</p>
 <h2>Connecting</h2>
 <p>First of all, assuming you do development on your PC like I do, make sure you download the Windows developer environment for the Arduino and install it on your PC. There is a good tutorial available on:</p>
@@ -34,6 +39,10 @@
 <p>Download the Arduino firmware and unpack the file in the Arduino library. By default this is in&nbsp;the&nbsp;arduino directory that is created for every library user in his own home directory. Restart you Arduino and restart the development environment on your PC. If you now choose &lt;FILE&gt;&lt;EXAMPLES&gt; than the LamPI library should show up on the bottom of the list.</p>
 <p>Now select &lt;LamPI&gt; library and then &lt;Transceiver433&gt;. Click on the top of your page on the right arrow to compile the file and send it to your Arduino.</p>
 <h2>Test the Arduino installation</h2>
+<p>&nbsp;</p>
+<h2>Message Format</h2>
+<p>The message format of messages exchanged between the Raspberry and the Arduino is defined on the following page(s):</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 </body>
 </html>
