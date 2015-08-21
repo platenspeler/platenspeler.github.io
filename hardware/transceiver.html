@@ -31,7 +31,7 @@
 <p>This is different for the transmit or receiver function, and it also differs whether you just want to send messages using the commandline or whether you want some sort of daemon function that watches a well-known socket and based on incoming messages for a certain brand of equipment will use the correct transmitter command.</p>
 <p>So let me explain.</p>
 <ul>
-  <li>LamPI-receiver daemon; read 433MHz handsets and transmits device commands over sockets on default port 5000</li>
+  <li>LamPI-receiver daemon; read 433MHz handsets and transmits device commands over sockets on default port 5000 (socket TCP)</li>
   <li>Use LamPI-receiver as a stand-alone shell function to see incoming messages, timing and see statistics</li>
   <li>Use the shell transmitter executables to send single command to your connected devices</li>
 </ul>
@@ -47,8 +47,9 @@
   <li>Klikaanklikuit.nl remote controls (kaku for short)</li>
   <li>Action (or impuls) handsets</li>
   <li>Livolo keychains</li>
-  <li>Kopou keychain</li>
+  <li>Kopou keychains</li>
   <li>several other keychain FOB's or remotes that have similar message format as action</li>
+  <li>Weather stations</li>
 </ul>
 <p>The commandline sniffer can be activated as follows: </p>
 <p><code><strong>&gt; cd ~/exe<br>

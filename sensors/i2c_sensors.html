@@ -29,26 +29,97 @@
 <h2>3.1 Common I2C Sensors available</h2>
 <p>The following (not so expensive) sensors are available for connection to the
   LamPI system.</p>
-<ul>
-  <li>LM75a,
-    Temperature Sensor (made by NXP and others)</li>
-  <li>BMP085 (or GY-65),
-    Digital Barometric Pressure Sensor board Barometer sensor module. </li>
-  <li>BMP180, This module replaces the BMP085 (according to Bosch it is pi compatible).</li>
-  <li>SHT21 (or GY-21), Humidity and Temperature Sensor</li>
-  <li>HMC5883 (or GY-273),
-    3-axis digital compass</li>
-  <li>AM2321,
-    Humidity and Temperature Sensor (with awfully small pin-out)</li>
-</ul>
-<ul>
-  <li>HTU21, Temperature and Hunidity Sensor</li>
-  <li>MMA7455,
-    Digital accelerator sensor</li>
-  <li>MPL3115A2,
-    Altimeter, Temperature and Pressure sensor</li>
-  <li>Luminescence sensor</li>
-</ul>
+<table width="84%" border="1">
+  <tr>
+    <th width="13%" scope="col">device</th>
+    <th width="9%" scope="col">alias</th>
+    <th width="12%" scope="col">Address</th>
+    <th width="54%" scope="col">Comment</th>
+    <th width="12%" scope="col">xxx</th>
+  </tr>
+  <tr>
+    <td>:LM75a</td>
+    <td>&nbsp;</td>
+    <td>0x48 - 04F</td>
+    <td>Temperature Sensor (made by NXP and others)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>BMP085</td>
+    <td>GY-65</td>
+    <td>0x77</td>
+    <td>Digital Barometric Pressure Sensor board Barometer sensor module</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="48">BMP180</td>
+    <td><p>GY-68</p></td>
+    <td>0x77</td>
+    <td>This module replaces the BMP085 (according to Bosch it is pi compatible)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>SHT21</td>
+    <td>GY-21</td>
+    <td>0x40</td>
+    <td>Humidity and Temperature Sensor</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>HTU21</td>
+    <td>&nbsp;</td>
+    <td>0x40</td>
+    <td>Humidity and Temperature Sensor</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>AM2321</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td> Humidity and Temperature Sensor (with awfully small pin-out)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>BH1750FVI</td>
+    <td>&nbsp;</td>
+    <td>0x23</td>
+    <td>Luminescence sensor</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>HMC5883</td>
+    <td>GY-273</td>
+    <td>&nbsp;</td>
+    <td>3-axis digital compass</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>MMA7455</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Digital accelerator sensor</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>MMA7455</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Digital accelerator sensor</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>MPL3115A2</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Altimeter, Temperature and Pressure sensor</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<h2>Bus detect</h2>
+<p>For a Raspberry revision level 2 you can scan the I2c bus for available devices with the command:</p>
+<p>&gt; sudo i2cdetect -y 1</p>
+<p>If you have an old Raspberry (revision level 1) it would be &quot;-y 0&quot; to look that address.</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>3.2 Sensor Messaging</h2>
 <p>The LamPI-node.js process will accep sensor messages from local or remote I2C sensors. The message format is detailed further in a separate section of the documentation. However, in general the &quot;address&quot; of the sensor is determined by the location of the sensor in the I2C bus, and the &quot;channel&quot; parameter will contain the last byte of the IP address in normal decimal form. The latter is important because if will make every sensor unique in the system (Lampi an dthe local network) as far as the sensor allows. For example, there can be only ONE sht21 sensor on every ssystem by there can be 8 LM75a sensrs of every system. In orer to make every system unique accross several Slave units, the cannel parameter which is normally &quot;0&quot; is made equal to the last part of the IP address.</p>
@@ -57,6 +128,7 @@
   <li>Make sure that the ~/config/database.cfg file contains the right records for every I2C sensor. Inclusive the address parameter which is sensor dependent and the channel parameter which will must be the last byte of the IP address of the sensor on the local network</li>
   <li>Make sure that the system reporting the sensor value will report the correct type, address and channel when sensing an UDP message to the LamPI-nod.js daemon program.</li>
 </ul>
+<p>&nbsp;</p>
 <h2>3.3  Temperature Sensor LM75</h2>
 <p>The LM75 is a cheap example of an I2C capable sensor. Several people have
   connected this sensor to the Raspberry and achieved promising results. I looked at these small packages and decided that soldering for me is not a real option as the pin out is really (REALLY) close and we risk to make a mess of our soldering job. </p>
