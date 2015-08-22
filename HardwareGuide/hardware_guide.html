@@ -72,7 +72,7 @@
 </ul>
 <h3>433MHz Temperature Sensors</h3>
 <ul>
-  <li><a href="wt440h/wt440h.html">WT-440H</a>, made by UPM/Esic (The weather menu button will only show if a weather sensor is defined in the ~/config/database.cfg file)</li>
+  <li><a href="433-Sensors/wt440h/wt440h.html">WT-440H</a>, made by UPM/Esic (The weather menu button will only show if a weather sensor is defined in the ~/config/database.cfg file)</li>
   <li>Auriol (cheap weather station sold by LIDL).</li>
 </ul>
 <p>&nbsp;</p>
@@ -83,9 +83,9 @@
 <ul>
   <li><a href="#connector">The Raspberry P1 Connector</a></li>
   <li><a href="#433transceivers">How to connect 433 transmitters and receivers</a></li>
-  <li><a href="#zwave">Razberry, plug on board with Z-Wave firmware</a></li>
+  <li><a href="#zwave_guide">Razberry, plug on board with Z-Wave firmware</a></li>
   <li><a href="#wsensors">Wired weather Sensors</a></li>
-  <li><a href="#energy_sensors">Energy Sensors</a></li>
+  <li><a href="#energy_sensors">Energy Sensors</a> Gateway</li>
   <li></li>
 </ul>
 <p>&nbsp;</p>
@@ -160,7 +160,7 @@
 </p>
 <h2><a name="wsensors"></a>Connecting Wired Sensors</h2>
 <p>Connecting weather sensors (hardware installation) is not difficult as long as their interface sticks to the more well-known I2C bus or to the Dallas (1w) bus.</p>
-<p>There is a separate chapter on connecting sensors which you find <a href="../sensors/wired_sensors.html">&lt;HERE&gt;</a>. The special message format used by devices to send messages to LamPI-node.js can be found <a href="../sensors/weather_sensors_msg_format.html">&lt;HERE&gt;</a>.</p>
+<p>There is a separate chapter on connecting sensors which you find <a href="Wired-Sensors/wired_sensors.html">&lt;HERE&gt;</a>. The special message format used by devices to send messages to LamPI-node.js can be found <a href="Wired-Sensors/weather_sensors_msg_format.html">&lt;HERE&gt;</a>.</p>
 <p></p>
 <h2><a name="433transceivers"></a>Connecting 433MHz Transmitters and Receivers</h2>
 <p>How to make the RaspberryPI a transmitter/receiver host for 433MHz? It is probably simpler than you thinkt. Apart from the PI itself you need two really cheap small pieces of hardware, some solder and wires and a little time to put it together. So what you need are a small transmitter board and a receiver board. These boards are sold on eBay, Aliexpress and some internet shops for prices ranging from 2 $ a pair to 20$ for a receiver. In my experience, both cheap and more expensive boards work OK, if have both.</p>
@@ -180,7 +180,7 @@
 <p>For your final version, where you need to rely on in your house, this may be a safe choice of transmitter/receiver.</p>
 <h2>iPrototype</h2>
 <p>The Dutch internetshop iPrototype also sells transmitters and receivers  and their quality is very good, and comparable to the Superheterodyne set described above..</p>
-<p><img src="iPrototype/665_big.png" alt="" width="298" height="250"><img src="iPrototype/640_big.png" alt="" width="298" height="250"></p>
+<p><img src="Wired-Transceivers/iPrototype/665_big.png" alt="" width="298" height="250"><img src="Wired-Transceivers/iPrototype/640_big.png" alt="" width="298" height="250"></p>
 <p>Link: <a href="https://iprototype.nl/products/components/communications/rf-transmitter-434mhz#">https://iprototype.nl/products/components/communications/rf-transmitter-434mhz#</a></p>
 <h2>FSK (Won't Work)</h2>
 <p>I bought a set of FSK (Frequency Shift Keying) transmitter/receivers as an alternative to separate tranmitter/receiver sets. These work in a FSK environment only and are <strong>NOT</strong> usable for Klikaankliuit communication. Kiku modules wiork with a different type of modulation, based on  ASK (amplitude-shift keying) or OOK (OOK is On Off Keyking, an ASK variant with 100% amplitude modulation, so on or off). <br>
@@ -197,7 +197,7 @@
 </ul>
 <p>&nbsp;</p>
 <h2><a name="energy_sensors" id="energy_sensors"></a>Connecting Energy Sensors</h2>
-<p>There is a separate chapter on connecting Energy Sensors to your Raspberry. Please read <a href="../sensors/energy_sensors.html">&lt;HERE&gt;</a>. </p>
+<p>There is a separate chapter on connecting Energy Sensors to your Raspberry. Please read <a href="Wired-Sensors/energy_sensors.html">&lt;HERE&gt;</a>. </p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h1></h1>
@@ -324,7 +324,7 @@
 <p>&nbsp;</p>
 <h2><a name="razberry_gateway"></a>868 MHz Zwave Gateway (Razberry)</h2>
 <p>If you like to get your home automation working with more sophisticated technology which enables you to query the status&nbsp;of your connected devices: Z-Wave is your way to go.</p>
-<p><img src="Razberry/razberry2.jpg" alt="" width="400" height="400"><br>
+<p><img src="Zwave-Gateway/RazBerry/razberry2.jpg" alt="" width="400" height="400"><br>
   The Razberry is a small stick-on device that connect to the P1 connector of the Raspberry. It contains the firmware needed to interface with the 868MHz Z-Wave software (which the company calls ZWay). It's a little bit difficult to see in the picture above, but the Razberry is the stick-up board that is attached to the GPIO connector of the RaspberryPI model B. It uses only a few pins of the Raspberry connector, but onfortunately these are shared by most other board solutions. Therefore it is hard to make the Razberry work with traditional direct connected trasnmitter/receiver hardware of 2.4 GHz (Zigbee) equipment.</p>
 <ul>
   <li>Fibaro FGD-211 Dimmer</li>
@@ -334,8 +334,8 @@
   <li>etc. etc.</li>
 </ul>
 <p>&nbsp;</p>
-<p><a href="../Hardware/Razberry/razberry3.jpg"><img src="Razberry/razberry1.jpg" alt="Razberry/razberry2.jpg" width="400" height="267"></a> <img src="Razberry/razberry3.png" width="408" height="345"></p>
-<p>If you like to read more on the software for the Razberry and how LamPI interfaces with the hardware, please read further &lt;<a href="../Zwave/RazBerry/zwave_gateway.html">HERE</a>&gt;</p>
+<p><a href="../Hardware/Razberry/razberry3.jpg"><img src="Zwave-Gateway/RazBerry/razberry1.jpg" alt="Razberry/razberry2.jpg" width="400" height="267"></a> <img src="Zwave-Gateway/RazBerry/razberry3.png" width="408" height="345"></p>
+<p>If you like to read more on the software for the Razberry and how LamPI interfaces with the hardware, please read further &lt;<a href="Zwave-Gateway/RazBerry/zwave_gateway.html">HERE</a>&gt;</p>
 <p>&nbsp;</p>
 <h1><a name="zigbee_guide"></a>Zigbee Guide</h1>
 <p>The third protocol that is used in Home Automation environments is Zigbee. It was invented by Philips and used for its lumination solutions. However, as the protocol is difficult and is a closed and proprietary solution, not so many other vendors are using Zigbee at the moment.</p>
