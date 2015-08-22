@@ -9,13 +9,13 @@
 <h1>Arduino Gateway messaging</h1>
 <h5>Version 3.6 Alpha; Message format may (and will) change between LamPI releases</h5>
 <h2>Intro</h2>
-<p>When using the Arduino as a gateway for 433MHz messages, the Raspberry will loose a lot of cpu/interrupt intensive workload which is taken over by the Arduino. The Raspberry will then send simple and short messages to the arduino, for example to switch on the lights and the Arduino will message the Raspberry upon receiving sensor values or&nbsp;handset commands from 433 MHz devices.</p>
-<p>&nbsp;</p>
+<p>When using the Arduino as a gateway for 433MHz messages, the Raspberry will lose a lot of cpu/interrupt intensive workload which is taken over by the Arduino. The Raspberry will then send simple and short messages to the arduino, for example to switch on the lights and the Arduino will message the Raspberry upon receiving sensor values or&nbsp;handset commands from 433 MHz devices.</p>
+<p>For more information about Raspberry an Arduino Gateway, <a href="../hardware_guide.html">visit the dedicated page</a> on the Hardware Guide.</p>
 <h2>Message format</h2>
 <p>Initially, we will focus on the klikaanklikuit commands as those are the devices I do have in my home. We like to include some other protocols as well, so that the direct connected devices to the Raspberry and those supported by the Arduino gateway become the same. </p>
 <p>This will mean in short that we like to include support for weather sensors etc.</p>
-<p>Of course we have to keep in mind that the Arduino received, which is interrupt based, will spend mroe time in recognizing incoming pulses if we include a great deal of protocols in the Arduino. Therefore it is wise that the Arduino will only selectively receive messages and non important message format of devices not used will be excluded from its parser.</p>
-<p>Keep in mind thta we keep the message layout VERY SIMPLE, initially we supported a set which was more verbose, however this would mean a lot more work on the Arduino side to understand the messages, interpret and send responses.&nbsp;The current message format is so simple that almost every command and parameter will fit in a char, except group codes etc. which will be interger in length.</p>
+<p>Of course we have to keep in mind that the Arduino receiver which is interrupt based, will spend more time in recognizing incoming pulses if we include a great deal of protocols in the Arduino. Therefore it is wise that the Arduino will only selectively receive messages and non important message format of devices not used will be excluded from its parser.</p>
+<p>Keep in mind that we keep the message layout VERY SIMPLE, initially we supported a set which was more verbose, however this would mean a lot more work on the Arduino side to understand the messages, interpret and send responses.&nbsp;The current message format is so simple that almost every command and parameter will fit in a char, except group codes etc. which will be integer in length.</p>
 <p>* Message&nbsp;formats not supported but planned are put in the table with a *</p>
 <p>&nbsp;</p>
 <h3>Initiated by the Raspberry</h3>
@@ -42,7 +42,7 @@
   </tr>
   <tr>
     <td>Set Codec enable</td>
-    <td>*</td>
+    <td>&nbsp;</td>
     <td>&gt; {cnt} 0 1 {codec} {value}</td>
     <td>Same as above, but set a value on (=1) or off (=0)</td>
   </tr>
@@ -87,7 +87,7 @@
     <td>&nbsp;</td>
     <td>*</td>
     <td>&gt; {cnt} 2 {Message to Sensor}</td>
-    <td>Not used</td>
+    <td>Not used (yet)</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -102,22 +102,22 @@
     <td>&nbsp;</td>
   </tr>
 </table>
-<p>The first &quot;word&quot; is the message counter that should be in every message. The second gives the command for the Arduino, The next byte is a subcommand e.g. all admin commands or all transmitter commands etc. The rest of the string are bytes to support these subcommands.</p>
+<p>The first &quot;word&quot; is the message counter that should be in every message. The second gives the command for the Arduino, The next byte is a subcommand e.g. all admin commands or all transmitter commands etc. The rest of the string are bytes to support these subcommands. All words are separated by the space character &quot; &quot;, although in most cases comma &quot;,&quot; will work as well.</p>
 <p>&nbsp;</p>
 <h2>Initiated by the Arduino</h2>
 <p>Messages generated and sent by the arduino are short and simple and are either a reply (for command above) to a Raspberry request or are coming from 433MHz messages received over its antenna. </p>
 <table width="1126" height="115" border="1">
   <tr>
-    <th width="246" scope="col">Command</th>
-    <th width="8" scope="col">&nbsp;</th>
-    <th width="412" scope="col">Receive</th>
-    <th width="432" scope="col">Notes</th>
+    <th width="259" scope="col">Command</th>
+    <th width="19" scope="col">&nbsp;</th>
+    <th width="326" scope="col">Receive</th>
+    <th width="494" scope="col">Notes</th>
   </tr>
   <tr>
     <td>All other comments or messages coming from Arduino</td>
     <td>&nbsp;</td>
     <td>! {Message}</td>
-    <td>Everythig after the ! is just comment and not interpreted</td>
+    <td>Everything after the ! is just comment and not interpreted. The ! could be first character on a line, or follow an&nbsp;existing reponse.</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -162,7 +162,7 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><strong>Reply to a device message of Raspi</strong></td>
+    <td><strong>Reply to device cmd of Raspi</strong></td>
     <td>&nbsp;</td>
     <td>&lt; {cnt} 1 {codec} {group} {unit} {value}</td>
     <td><p>This is a reply on a Raspberry message (optional: hardly used).</p></td>
@@ -216,7 +216,7 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>Receive a 433 Sensor message</td>
+    <td><strong>Receive 433 Sensor message</strong></td>
     <td>&nbsp;</td>
     <td>&lt; {cnt} 3 {codec} {address} {channel} {temperature} {humidity}</td>
     <td>wt440h (UPM/Esic) is one codec 0 but there are more</td>
@@ -231,11 +231,21 @@
   </tr>
   <tr>
     <td><blockquote>
-      <p>example:</p>
+      <p>WT440h example:</p>
     </blockquote></td>
     <td>&nbsp;</td>
     <td>&lt; {cnt} 3 1 1 0 8984 85</td>
     <td>Receive UPM weather message temp (20.1 Celcius encoded) and humi (85%)</td>
+  </tr>
+  <tr>
+    <td><blockquote>
+      <p>Auriol example:</p>
+    </blockquote></td>
+    <td>&nbsp;</td>
+    <td>&lt; 8 3 3 138 0 237 0 ! Auriol Cs: 0, N1: 1000, N2: 100<br /></td>
+    <td>Receive Auriol weather for device id 138, message temp is 23.7 Celcius encoded and humi 0% (not supported). Optionally when debug is active&nbsp;(!), it will provide the N1 and N2 parameters (N1 1000 tells us the battery is still OK).<br />
+    <br />
+    When Statistics is compilers, it will show timing info after the &quot;!&quot; as well.</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -245,9 +255,21 @@
   </tr>
 </table>
 <p>As you can see, the message coming in from the Arduino of a device is the same as the message that is sent by the Raspberry to get the Arduino to send a command to a KlikAanKlikAuit device.</p>
-<p>&nbsp;</p>
+<h3>Todo</h3>
+<p>1. We will need some sort of admin mesages to be received from the Arduino as well. For Gateways we coul use the standard admin (=0) commands initiated from the Raspberry, but for Arduino Sensor or other devices i might be better if once in a while the Arduino would check itself and send warnings is certain critical conditions occur or will occur in the future.</p>
+<p>Examples are: </p>
+<ul>
+  <li>Battery/Power is insufficient</li>
+  <li>Memory usage is high</li>
+</ul>
+<p>2. Also it would be good if we can actively set parameters in Arduino devices that do have a receiver connected and use it to change the internal state of some variables and parameters. Examples:</p>
+<ul>
+  <li>Switch debug on and off&nbsp;(This is fixed already&nbsp;for USB connections but could be set over wireless reception also)</li>
+</ul>
+<p>3. Finally, as the wireless protocols WT440h and Auriol are fairly limited and do not support other sensors than temperature and&nbsp;humidity, we need a homegrown protocol that enables us to define messages (like the ones we send over USB) and send them over the air. </p>
 <h2>Codecs</h2>
-<p>The codec is different for different commands. So the codec for handsets and sensors is different.</p>
+<p>The codec is different for different type of commands. So the codec for handsets and sensors is different.</p>
+<p>&nbsp;</p>
 <h3>Handsets</h3>
 <p>Please keep in mind that for the current version not all protocols are supported. Legend: &lt; means receive, &gt; means transmit is supported</p>
 <ul>
@@ -264,6 +286,7 @@
 <ul>
   <li>0: Reserved for on-board sensors of the Arduino (such as the HTU21D temperature and humidity sensor).</li>
   <li>1: wt440h (&lt;); UPM (or Esic) weather sensor. Range of reception not so good. The address is 1 to 15, and the Channel is </li>
+  <li>3: Auriol messages. </li>
 </ul>
 <h3>Blinds, Curtains, Motors</h3>
 <p>Not supprted and tested yet </p>
