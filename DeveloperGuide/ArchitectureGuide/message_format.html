@@ -7,6 +7,10 @@
 <body>
 
 <h1>LamPI Message Format</h1>
+<h5>Version 3.5.6<br>
+  Date: Sep 8, 2015
+  <br>
+</h5>
 <p>This chapter describes the format of messages exchanged between the various LamPI components. In an asynchronous system like LamPI, sensors and users might generate messages all time and the system has to take action based upon these interrupts. </p>
 <h2>Introduction</h2>
 <p>Between the parts of the LamPI system, several components exchange messages to inform the other of device changes, temperature values, initializations etc etc. This call for a standard message format that we can use between all components. This section describes the messages that are exchanged between the LamPI components. In the middle of all communication is the LamPI-node daemon, therefore we will discuss the messaging seen from the LamPI-daemon as it communicates with GUI's, sensors and other devices/programs.</p>
@@ -80,7 +84,7 @@
   <tr>
     <td>&nbsp;</td>
     <td><a href="#delete_room">delete_room</a></td>
-    <td>&nbsp;</td>
+    <td>Delete a room from the 'config' object and from the mysql database</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -114,12 +118,12 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>add_handset</td>
+    <td><a href="#add_handset">add_handset</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>delete_handset</td>
+    <td><a href="#delete_handset">delete_handset</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -129,42 +133,42 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>add_user</td>
+    <td><a href="#add_user">add_user</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>delete_user</td>
+    <td><a href="#delete_user">delete_user</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>store_user</td>
+    <td><a href="#store_user">store_user</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>add_sensor</td>
+    <td><a href="#add_sensor">add_sensor</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>delete_sensor</td>
+    <td><a href="#delete_sensor">delete_sensor</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>add_rule</td>
+    <td><a href="#add_rule">add_rule</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>store_rule</td>
+    <td><a href="#store_rule">store_rule</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>delete_rule</td>
+    <td><a href="#delete_rule">delete_rule</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -174,17 +178,17 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>add_device</td>
+    <td><a href="#add_device">add_device</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>delete_device</td>
+    <td><a href="#delete_device">delete_device</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>store_device</td>
+    <td><a href="#store_device">store_device</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -203,19 +207,9 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
     <td><strong><a href="#energy">energy</a></strong></td>
     <td><em>&lt;none&gt;</em></td>
     <td>Only one smart meter device is defined at the moment. The buffer argument contains 10 parameters reported by the smart meter. If the meter is not yet present, we create it first.</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -238,29 +232,9 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
     <td><strong><a href="#gui">gui</a></strong></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td>&lt;none&gt;</td>
+    <td>The guiHandler and icsHandler handle incoming device commands received from the user either through the GUI or through a&nbsp;handset message received.</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -269,7 +243,7 @@
   </tr>
   <tr>
     <td><strong><a href="#handset">handset</a></strong></td>
-    <td>&nbsp;</td>
+    <td><a href="#gui">see gui handler</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -289,8 +263,8 @@
   </tr>
   <tr>
     <td><strong><a href="#load_database">load_database</a></strong></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td>&lt;none&gt;</td>
+    <td>This command is VERY essential to the LamPI.js gui application. It sends the 'config' object to the requesting client upon starting the client page. </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -299,7 +273,7 @@
   </tr>
   <tr>
     <td><strong><a href="#ping">ping</a></strong></td>
-    <td>&nbsp;</td>
+    <td>&lt;none&gt;</td>
     <td>This is a keep-alive message to make sure client and server both know that the otehr one is alive. In a mid-size configuration, ping messages are not necessary anymore since there will be multi commands per minute.</td>
   </tr>
   <tr>
@@ -355,7 +329,7 @@
   <tr>
     <td><strong>user</strong></td>
     <td>&lt;none&gt;</td>
-    <td>&nbsp;</td>
+    <td>Not used at the moment</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -364,18 +338,8 @@
   </tr>
   <tr>
     <td><strong>weather</strong></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td><em>default</em></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td><a href="#sensor">see Sensor</a></td>
+    <td>Weather has migrated to sensor (will be obsolete in one of the next releases).</td>
   </tr>
 </table>
 <p>In the sections below the messages are explained in more detail.</p>
@@ -477,12 +441,20 @@ Lines are separated by &quot;&lt;br&gt;&quot;</code></p>
 <p>The dbase command arranges load and store of objects to the config object and the database (for persistent storage). There are several sub commands involved, most are initiated by a client GUI by updating the value of a device by the user, or as a result of creating or deleting a new defnition in the GUI.</p>
 <h3><a name="add_room"></a>add_room, <a name="delete_room"></a>delete_room</h3>
 <p>&nbsp;</p>
+<h3><a name="add_device"></a>add_device, <a name="delete_device"></a>delete_device, <a name="store_device"></a>store_device</h3>
+<p>&nbsp;</p>
+<h3><a name="add_handset"></a>add_handset, <a name="delete_handset"></a>delete_handset</h3>
+<p>&nbsp;</p>
 <h3><a name="add_scene"></a>add_scene, <a name="delete_scene"></a>delete_scene, <a name="store_scene"></a>store_scene</h3>
 <p>These database commands handle scene object database&nbsp;for actions that are taken by the GUI user.</p>
 <p>&nbsp;</p>
 <h3><a name="add_timer"></a>add_timer, <a name="delete_timer"></a>delete_timer, <a name="store_timer"></a>store_timer</h3>
 <p>&nbsp;</p>
 <h3><a name="add_user"></a>add_user, <a name="delete_user"></a>delete_user, <a name="store_user"></a>store_user</h3>
+<p>&nbsp;</p>
+<h3><a name="add_sensor"></a>add_sensor, <a name="delete_sensor"></a>delete_sensor</h3>
+<p>&nbsp;</p>
+<h3><a name="add_rule"></a>add_rule, <a name="delete_rule"></a>delete_rule, <a name="store_rule"></a>store_rule</h3>
 <p>&nbsp;</p>
 <h3><a name="list_user"></a>list_user</h3>
 <p>This message is used to provide the GUI with a list of authorized user profiles. Used in the config -&gt; users option.</p>
@@ -552,48 +524,48 @@ Lines are separated by &quot;&lt;br&gt;&quot;</code></p>
 <h2><a name="handset"></a>handset</h2>
 <p>Handsets from klikaanklikuit, Action or other handsets that are defined and recognized can send information about buttons pressed to the LamPI-daemon process.</p>
 <p><code>var rcv = {</code></p>
-<blockquote>
-  <p><code> rcv.tcnt; 				// message transaction counter<br>
-    rcv.type;				// type of content part, eg raw or json<br>
-    rcv.action; </code></p>
-</blockquote>
-<p><code>}</code></p>
+<p><code> &nbsp;	rcv.tcnt; 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	// message transaction counter<br>
+ &nbsp; rcv.type: raw			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	// type of content part, eg raw or json<br>
+ &nbsp; rcv.action;<br>
+</code><code>}</code></p>
+<p>&nbsp;</p>
 <h2><a name="login"></a>login</h2>
 <p>This message is used to tell the GUI that the LamPI-daemon does or does not trust the client, based on its IP address.</p>
-<p>var rcv = {</p>
-<p> <code>tcnt: &lt;integer	value&gt;,			// message transaction counter<br>
-  type: &quot;raw&quot;,				// type of content part, eg raw or json<br>
-  action : &quot;login&quot;,<br>
-  message : </code>&quot;optional text message&quot;</p>
-<p>}</p>
+<p><code>var rcv = {<br>
+&nbsp;	</code><code>tcnt: &lt;integer	value&gt;,			// message transaction counter<br>
+ &nbsp; type: &quot;raw&quot;,				// type of content part, eg raw or json<br>
+ &nbsp; action : &quot;login&quot;,<br>
+ &nbsp; message : &quot;optional text message&quot;<br>
+</code><code>}</code></p>
 <p>&nbsp;</p>
 <h2><a name="sensor"></a>sensor</h2>
 <p>Messages received from the LamPI_receiver or any other sensor control program might contain the weather action, which will be interpreted by the LamPI_daemon and its values forwarded to the connected GUI clients.</p>
-<p>var rcv = {</p>
-<p><code>	tcnt: , 				// message transaction counter<br>
-type,				// type of content part, eg raw or json<br>
+<p><code>var rcv = {</code><br>
+  <code>	&nbsp;	tcnt: , 				// message transaction counter<br>
+  &nbsp;
+type: 'raw',				// type of content part, eg raw or json<br>
+&nbsp;
 action: 'sensor',
-</code><code><br>
-  address : ,<br>
-  channel : ,<br>
-  temperature: ,<br>
-  humidity : ,<br>
-  airpressure: ,<br> 
-  windspeed: ,
+<br>
+ &nbsp; address : ,<br>
+ &nbsp; channel : ,<br>
+ &nbsp; temperature: ,<br>
+ &nbsp; humidity : ,<br>
+ &nbsp; airpressure: ,<br> 
+ &nbsp; windspeed: ,
   <br>
-  winddirection: ,<br>
-  rainfall: </code><br>
-</p>
-<p>}</p>
+ &nbsp; winddirection: ,<br>
+ &nbsp; rainfall: <br>
+</code><code>}</code></p>
 <p>&nbsp;</p>
 <h2><a name="setting"></a>setting</h2>
 <p>The individual settings as in config['settings'] can be updated. Settings can be updated local to the GUI session in the browser, and some can be stored in persistent storage.</p>
-<h3>add_config</h3>
+<h3><a name="store_config" id="store_config"></a>store_config</h3>
 <p>&nbsp;</p>
-<h3>load_config</h3>
-<p>&nbsp;</p>
-<h3>list_config</h3>
-<p><br>
+<h3><a name="load_config"></a>load_config</h3>
+<p>Load the config file requested by the user (in the socket) and make sure that the current 'config' object is replaced by the JSON object found in the file.</p>
+<h3><a name="list_config"></a>list_config</h3>
+<p>List all config files in the config directory and send them to the requesting GUI client.<br>
 </p>
 <h2><a name="load_database"></a>load_database</h2>
 <p>This is the message that will reset the Mysql database and re-load the <code>~/config/database.cfg</code> file into the system</p>
@@ -602,13 +574,6 @@ action: 'sensor',
   type: &quot;json&quot;,				// type of content part, eg raw or json<br>
   action : &quot;load_database&quot;</code></p>
 <p>}</p>
-<p>&nbsp;</p>
-<h2>upd_config</h2>
-<p>This message format is almost the same as the load_database message. However, we do not expect the init action. </p>
-<p>&nbsp;</p>
-<h2>&nbsp;</h2>
-<p></p>
-<h2>&nbsp;</h2>
 <p>&nbsp;</p>
 <h1>Z-wave Connect</h1>
 <p>The Z-Wave messaging format is described on the separate Z-Wave page. Reason is that this is not so much a programming interface but communication takes place as a URL string that is executed by &quot;curl&quot; in the LamPI-daemon. At the moment the communication is therefore initiated by the LamPI-daemon only.</p>
