@@ -6,8 +6,8 @@
 </head>
 
 <body>
- <h1>ESP Gateway</h1>
- <h2>Introduction</h2>
+<h1>ESP LamPI Gateway</h1>
+<h2>Introduction</h2>
  <p>This page describes the ESP8266 Gateway that was built for LamPI. Like more of the boards used this started off as a hardware project. However, the ESP requires more than average care when developing software. That is why on this page we will fous on the IDE and software development also (so all on one page and not in two different sections of the documentation).</p>
  <p>This is serious stuff: For a long time I thought it was nearly impossible to get the ESP gateway to work reliably, but in the end the project was successful. I started this project thinking that if we could combine the functions of a Raspberry slave with an Arduino Mega gateway node we would have a cheap replacement for a 40 + 10 euro setup.</p>
  <p>However, the ESP is a totally different animal as the Arduino. The Arduino does not do a terrible lot of background processing. But the ESP has a omplete TCP stack and WiFi hardware to take care of, and it has a watchdog implementation that will kick in if these bakground processes do not get enought time.</p>
@@ -40,7 +40,8 @@
 <p>As we plan to use the Arduino IDE to program the devices, we need to know the correct pin numbering in order to make sure we can talk with sensors. Below you find the pinout for the NodeMCU board (nice picture thanks to Arduining.com, click on picture to enlarge). So it tells us that&nbsp;if we wish to use GPIO2 for the OneWire bus that we need to use the fifth physical pin (D4) on the board.</p>
  <p><a href="../images/nodeMCU1.0-b.jpg"><img src="../images/nodeMCU1.0-b.jpg" width="600" height="500" hspace="10" vspace="10" /></a></p>
  <p>I built an ESP sensor sketch so it is easy to setup and manage. And as there are een smaller versions available of the same nodeMCU 1.0 board&nbsp;for only $4.00 from Aliexpress.com i see no immediate reason to work with the ESP01 bare device at the moment.</p>
-<p>&nbsp;</p>
+<p><a href="Gateway_schema_1.gif"><img src="../../../DeveloperGuide/ArchitectureGuide/images/ESP-Gateway_schema_1.gif" width="620" height="480" hspace="10" vspace="10" /></a></p>
+<p>As shown above the connection diagram for LamPI use is fairly simple. </p>
 <h1>IDE Considerations</h1>
 <p>Unfortunately, when you use the&nbsp;environment for both Arduino and ESP development there are a few things that you have to change and some others you have to be aware of:</p>
 <h3>Size of variables</h3>
@@ -64,8 +65,8 @@
     <th width="79%" scope="col">Function</th>
   </tr>
   <tr>
-    <td>GPIO0</td>
-    <td>D3</td>
+    <td>GPIO2</td>
+    <td>D4</td>
     <td>433 Receiver</td>
   </tr>
   <tr>
@@ -166,7 +167,8 @@
 </table>
 <p>Should for example a PIR sensor or battery level detection need to be connected than we need to connect to one of the free pins.<br />
   <br />
-  <br />
+<strong>NOTE</strong>: I did not succeed in getting the receiver to work stand alone when using  pin GPIO0 for the receiver. Apparently that only works when the serial monitor is attached. </p>
+<p><br />
 </p>
 <h3>Interrupts</h3>
 <p>The LamPI gateway sketch makes use of the interrupt system. The pin to interrupt system of the ESP is different from that of the standard Arduino system. In order to have the standard bahaviour of ArduinoGateway and ESP-Getaway be the same, we have to use GPIO0 for interrupt 0. </p>
@@ -182,7 +184,7 @@
     <td>0</td>
     <td>D3</td>
     <td>0</td>
-    <td>GPIO0 is mapped in interrupt 0</td>
+    <td>GPIO0 is mapped to interrupt 0</td>
   </tr>
   <tr>
     <td>...</td>
@@ -194,7 +196,7 @@
     <td>2</td>
     <td>D4</td>
     <td>2</td>
-    <td>GPIO2 is mapped in interrupt 2</td>
+    <td>GPIO2 is mapped to interrupt 2</td>
   </tr>
   <tr>
     <td>etc</td>
@@ -253,14 +255,86 @@
   <li>OneWireESP; the special OneWire iplementation for ESP. Renamed in order not to clash with the OneWire library used by the standard Arduino IDE</li>
 </ol>
 <p>&nbsp;</p>
+<h1>Version One</h1>
+<p>The first version is ready, and it is small. As you can seen in the picture above the NodeMCU board is mounted on a green experiment board on which I also solderen a 433MHz receiver (in the back), a 433 transmitter (under the NodeMCU) and a HTU21d temperature/humidity sensor (in the front).</p>
+<p>So we have a small node that connects to Wifi and connects to the lamPI daemon and works as a gateway between the daemon ond the 433MHz sensors and switches in the house.</p>
+<p><a href="../images/nodeMCU1.0-d.JPG"><img src="../images/nodeMCU1.0-d.JPG" width="600" height="450" hspace="10" vspace="10" /></a></p>
+<p>&nbsp;</p>
 <h1>V2, Smaller</h1>
-<p>The new Wemos D1 Mini is NodeMCU compatible, but is a lot smaller than the original board. As you can see, when used on a breadboard there is still room to make connections to power rails and devices, something which is not possible with the original NodeMCU board.</p>
+<p>The new Wemos D1 Mini is NodeMCU compatible, but is a lot smaller than the original board (which was not big itself). As you can see, when used on a breadboard there is still room to make connections to power rails and devices, something which is more difficult with the original NodeMCU board&nbsp;as we need to make those connections under the board.</p>
 <p>The Wemos board is according to the documentation nodeMCU 1.0 compatibe, however it is advised that you load the ESP IDE environment on the Wemos website into your IDE. For that, open your preferences and add <strong>http://www.wemos.cc/versions/77428ba/package_esp8266com_index.json</strong> to the additional boards URL.</p>
 <p><a href="../images/WemosD1Mini_a.JPG"><img src="../images/WemosD1Mini_a.JPG" width="600" height="400" hspace="10" vspace="10" /></a></p>
 <p>And when wiring the board up, this is the result:</p>
 <p><a href="../images/WemosD1Mini_b.jpg"><img src="../images/WemosD1Mini_b.jpg" width="600" height="450" hspace="10" vspace="10" /></a></p>
 <p>Everything can be soldered on a small perf board, only a HTU21D temperature/humidity board needs to be added.</p>
-<h2>Schematics</h2>
+<h1>Daemon Message Format</h1>
+<p>The ESP and the LamPI-Node daemon communicate over an open TCP socket connection. The message format is standardized&nbsp;and the same for the ESP as it is for the Raspberry based slave nodes. The daemon accpts incoming connect requests and from that moment on the daemon forwards device and sensor messages to the ESP. The ESP in turn will listen to sensor messages coming in on its 433MHz receiver and send these messages in JSON format to teh daemon for furthe rprocessing by LamPI.</p>
+<p>The TCP port to be used is configurable, but LamPI uses port 5002 for these raw socket connections.</p>
+<p>Read from daemon socket:</p>
+<p>{&quot;tcnt&quot;:&quot;10007&quot;,&quot;type&quot;:&quot;raw&quot;,&quot;action&quot;:&quot;gui&quot;,&quot;cmd&quot;:&quot;kaku&quot;,&quot;gaddr&quot;:&quot;100&quot;,&quot;uaddr&quot;:&quot;3&quot;,&quot;val&quot;:&quot;12&quot;,&quot;message&quot;:&quot;!R100D3FdP12&quot;}<br />
+{&quot;tcnt&quot;:&quot;5109&quot;,&quot;type&quot;:&quot;raw&quot;,&quot;action&quot;:&quot;gui&quot;,&quot;cmd&quot;:&quot;kaku&quot;,&quot;gaddr&quot;:&quot;105&quot;,&quot;uaddr&quot;:&quot;3&quot;,&quot;val&quot;:&quot;7&quot;,&quot;message&quot;:&quot;!R6D3FdP7&quot;}</p>
+<p>Send to daemon:</p>
+<p>{&quot;tcnt&quot;:&quot;9980&quot;,&quot;type&quot;:&quot;raw&quot;,&quot;action&quot;:&quot;sensor&quot;,&quot;brand&quot;:&quot;wt440&quot;,&quot;address&quot;:&quot;1&quot;,&quot;channel&quot;:&quot;0&quot;,&quot;temperature&quot;:&quot;12.0&quot;}<br />
+</p>
+<h1>Admin Server</h1>
+<p>During development, we can see what the ESP is doing by connecting with teh Serial Monitor. However, once the ESP is in the field the only interface we have is its socket connection to the Daemon. In order to have more control over the ESP in production, a very limited Web Interface is available.</p>
+<p>Call with: http://&lt;IP&gt;/[REST]</p>
+<p>There are several REST commands available, some have arguments as well to be specified in the REST string:</p>
+<table width="72%" border="1">
+  <tr>
+    <th scope="col">REST</th>
+    <th scope="col">Description</th>
+  </tr>
+  <tr>
+    <td>CONFIG</td>
+    <td>This command shows ALL relevant info from the ESP gateway</td>
+  </tr>
+  <tr>
+    <td>DEBUG/&lt;value&gt;</td>
+    <td>Set Debug mode, value can be [ on | off ]</td>
+  </tr>
+  <tr>
+    <td>SYSTEM</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>CODECS</td>
+    <td>List the codecs enabled for the ESP</td>
+  </tr>
+  <tr>
+    <td>ADDRESS</td>
+    <td>For on-board sensors of the ESP, we use this address as its ID in the database.</td>
+  </tr>
+  <tr>
+    <td>IP</td>
+    <td>List the local IP address in use by the ESP</td>
+  </tr>
+  <tr>
+    <td>GETTIME</td>
+    <td>&lt;not yet implemented&gt;</td>
+  </tr>
+  <tr>
+    <td>SETTIME</td>
+    <td>&lt;not yet implemented&gt;</td>
+  </tr>
+  <tr>
+    <td>KAKU/&lt;group&gt;/&lt;unit&gt;/&lt;value&gt;</td>
+    <td>Send a value to a KAKU device in the house. value can be: [ off | on | 0-15 ] (no quotes for off or on)<br />
+    /KAKU/100/1/10 will set device 1 of adress 100 to 10.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
 <p><br />
 </p>
 <h2>Links</h2>
