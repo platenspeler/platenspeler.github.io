@@ -6,8 +6,8 @@
 </head>
 
 <body>
- <h1>ESP 8266 IOT</h1>
-<p>A new variant of the Arduinosensor node is the IOT sensor which is based on a Wifi node such as the ESP8266. SO this means ta the sensor does not use the 433MHz or 868MHz frequency band to transmit sensor values but uses the 2.4GHz Wifi band and a proper IP connection to send (temperature) values.</p>
+ <h1>ESP8266 IoT</h1>
+<p>A new variant of the sensor and gateway node is the IOT sensor which is based on a Wifi node such as the ESP8266. This means ta the sensor does not use the 433MHz or 868MHz frequency band to transmit sensor values but uses the 2.4GHz Wifi band and a proper IP connection to send (temperature) values.</p>
 <p>This opens new possibilities: It may be possible to combine certain functions of the Raspberry and the Arduino for the LamPI environment. For example, If the ESP would be able work wih 433MHz receivers and transmitters it would be possible to receive messages coming from the LamPI daemon and send back received sensor readings to the daemon.</p>
 <p>But first, let's start with the simple stuff, the family tree :-)</p>
 <h1>The ESP8266 famility</h1>
@@ -79,12 +79,11 @@
 <h2>ESP 12</h2>
 <p>Because the ESP01 is so difficult to use on a breadboard I bought its elder brother the ESP12E. Although this device is a surface mounted device which requires all (if not more) of my soldering skills; once soldered on a separate board it should be easy to use.</p>
  <p><img src="images/esp-12e.jpg" width="226" height="223" /><a href="images/esp-12e-b.jpg"><img src="images/esp-12e-b.jpg" width="256" height="256" hspace="10" vspace="10" /></a></p>
- <p>As you can see, the main difference is that the ESP12 has much more possibilities to connect I/O as it has more free GPIO pins.</p>
- <p>I had hoped that this board would make the ESP12 easy to work with, but I keep having trouble with the Serial connections, and after uploading the firmware the device will not boot correctly. It may be hardware related, but for the few Euro's I do not plan to spend too much time on finding the root cause of my problems. I first like to have a working environment so that at least I know that it works and have a prototype environment. After that, debugging is much easier as we have a working environment to compare with.</p>
+ <p>As you can see, the main difference is that the ESP12 has much more possibilities to connect I/O as it has more free GPIO pins. This is what we want (as the pricedifference is low).</p>
+ <p>I had hoped that this board would make the ESP12 easy to work with, but I keep having trouble with the Serial connections, and after uploading the firmware the device will not always boot correctly and the Serial connection is difficult to deal with. It may be hardware related, but for the few Euro's I do not plan to spend too much time on finding the root cause of my problems. I first like to have a working environment so that at least I know that it works and have a prototype environment. After that, debugging is much easier as we have a working environment to compare with.</p>
  <p><a href="images/esp12e_c.JPG"><img src="images/esp12e_c.JPG" width="467" height="375" hspace="10" vspace="10" /></a></p>
-<p>So, as this boards did not work reliably on my PC I have opted for a third option to start with.</p>
-<p>But what would then the most simple way to start with the ESP8266?</p>
- <h2>nodeMCU1.0 (ESP12E based)</h2>
+<p>So, as this boards did not work reliably on my PC I have opted for a third option to start with. But what would then the most simple way to start with the ESP8266?</p>
+<h2>nodeMCU1.0 (ESP12E based)</h2>
  <p>This small board (and new ones are even smaller) can be connected to the computer with a micro USB cable and can be programmed without an extra FTDI interfaces or other additional hardware. I must say, getting these boards to work: powering, reset, upload sketches and monitor execution is a piece of cake compared to the bare chips...</p>
 <p>I have to see if I can make these boards energy efficient so they can be powered by battery, which would make this sensor solution even more versatile. However, even without battery operation it is a good solution for sensors that are remote to our house.</p>
  <p><img src="images/nodeMCU1.0-a.jpg" width="600" height="450" hspace="10" vspace="10" /></p>
@@ -304,7 +303,8 @@
 <h1>NodeMCU Sensor</h1>
 <p>This was my first project with the ESP8266 (nodemcu 1.0) and it is not difficult. I may be lucky, but with the changes made as described above it was easy to build an ESP-based sensor node that work reliably. However, its use is rather limited: It does not offer any specific benefits over an Arduino based and battery powered node except for its&nbsp;capabilities to work anywhere we have a Wifi connection available.</p>
 <p>In the default setup, the sensor will report its values over z websocket connection. The LamPI-node.js files has been changed in order to service these requests and as a result the sensors can be put on any place on earth as long as we have a reliable Wifi connection (So we need to know an SSID/password combination that works).<br />
-  <br />
+</p>
+<p><a href="ESP-Sensor/esp-sensor.html">Read further on the ESP Sensor project</a><br />
 </p>
 <h1>NodeMCU Gateway</h1>
 <p>This is serious stuff: For a long time I thought it was nearly impossible to get this to work reliably, but in the end the project was successful. I started this project thinking that if we could combine the functions of a Raspberry slave with an Arduino Mega gateway node we would have a cheap replacement for a 40 + 10 euro setup.</p>
@@ -312,7 +312,7 @@
 <p><a href="ESP-Gateway/esp-gateway.html">Read here further about the ESP Gateway project</a></p>
 <h1>Battery Operation</h1>
 <p>Of course these devices can be battery operated. After all, similar stuff is in every mobile phone. However,  those mobile phones are charged avery day or every other day, and that is not exactly what your are looking for&nbsp;when operating a sensor on a battery. The specifications tell us that the power usage is less than 1mA when stand-by, which is OK but not terrific. About 100uA would be far better for a battery powered device and would make the batteries last for a year or so.</p>
-<p></p>
+<p>And experiene shows that making a connection to the network and to the host in some cases can take a lot of time (for yet unknown reasons). And making these connection require most power. So if a node should wake up every minute o so and spends 15-30 seconds looking for the network or the host, battery operation will not work.</p>
  <h1>Links</h1>
  <ul>
    <li>http://esp8266.com/wiki/doku.php?id=nodemcu</li>
